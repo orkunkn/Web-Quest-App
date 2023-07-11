@@ -29,11 +29,11 @@ public class LikeService {
 
 	public List<LikeResponse> getAllLikesWithParam(Optional<Long> userId, Optional<Long> postId) {
 		List<Like> list;
-		if (userId.isPresent() && postId.isPresent()) {
+		if(userId.isPresent() && postId.isPresent()) {
 			list = likeRepository.findByUserIdAndPostId(userId.get(), postId.get());
-		}else if (userId.isPresent()) {
+		}else if(userId.isPresent()) {
 			list = likeRepository.findByUserId(userId.get());
-		}else if (postId.isPresent()) {
+		}else if(postId.isPresent()) {
 			list = likeRepository.findByPostId(postId.get());
 		}else
 			list = likeRepository.findAll();
@@ -47,7 +47,7 @@ public class LikeService {
 	public Like createOneLike(LikeCreateRequest request) {
 		User user = userService.getOneUserById(request.getUserId());
 		Post post = postService.getOnePostById(request.getPostId());
-		if (user != null && post != null) {
+		if(user != null && post != null) {
 			Like likeToSave = new Like();
 			likeToSave.setId(request.getId());
 			likeToSave.setPost(post);
@@ -60,5 +60,6 @@ public class LikeService {
 	public void deleteOneLikeById(Long likeId) {
 		likeRepository.deleteById(likeId);
 	}
+	
 	
 }
